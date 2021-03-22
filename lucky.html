@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<script src="./jquery-3.3.1.min.js"></script>
+<style>
+	#pan {
+		width: 1000px; height:1000px; overflow: hidden; position: relative;
+	}
+	
+	#pin {
+		width: 0; height:0; top: 80px; left:491px; position: absolute; 
+		border-radius: 32px 32px 0 0; border-top: 70px solid crimson; border-left: 16px solid transparent;
+		border-right: 16px solid transparent; border-bottom: 0; z-index: 1;
+	}
+</style>
+</head>
+<body>
+	<div style="font-size: 20px;">
+		선물 : <b><span id="result"></span></b>
+	</div>
+	
+	<div id="pan">
+		<canvas id="canvas" width="1000px" height="1000px"></canvas>
+	</div>
+	<div id="pin">
+	</div>
+	
+	<canvas id="cnvs" width="300" height="130" style="border:1px solid; position:absolute; z-index:999; cursor:crosshair; top:34px;">
+	</canvas>
+	
+	<script src="./Drawing.js"></script>
+<script>
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	
+	ctx.translate(500, 500);	// 원판의 원점 x, y
+	
+	var arrList = new Array();
+	
+	arrList.push({name:"치킨or피자", price:20000});
+	arrList.push({name:"핸드크림", price:10000});
+	arrList.push({name:"꽝", price:0});
+	arrList.push({name:"휴대폰 충전기", price:10000});
+	arrList.push({name:"커피 한잔", price:5000});
+	arrList.push({name:"멀티탭", price:10000});
+	arrList.push({name:"블루투스 스피커", price:15000});
+	arrList.push({name:"도서", price:20000});
+	arrList.push({name:"그립톡", price:10000});
+	arrList.push({name:"캔디머신", price:5000});
+	arrList.push({name:"요술봉", price:15000});
+	arrList.push({name:"마스크 줄", price:10000});
+	arrList.push({name:"양말", price:5000});
+	arrList.push({name:"슬리퍼", price:10000});
+	arrList.push({name:"방석", price:15000});
+	arrList.push({name:"캔들", price:10000});
+	arrList.push({name:"선풍기", price:15000});
+	arrList.push({name:"커피 세트", price:10000});
+	arrList.push({name:"가습기", price:15000});
+	arrList.push({name:"무드등", price:10000});
+	arrList.push({name:"초콜릿", price:20000});
+	arrList.push({name:"문상 1만원", price:10000});
+	arrList.push({name:"볼펜", price:3000});
+	arrList.push({name:"머그컵", price:10000});
+	arrList.push({name:"마스크", price:3000});
+	arrList.push({name:"(손)수건", price:10000});
+	arrList.push({name:"이모티콘", price:3000});
+	arrList.push({name:"손세정제", price:10000});
+	arrList.push({name:"편의점 상품권", price:5000});
+	arrList.push({name:"삼각대셀카봉", price:10000});
+	
+		
+	arrList.forEach(function(e, i) {
+		ctx.beginPath();
+		ctx.arc(0, 0, 400, 0, (360/arrList.length)*(Math.PI/180), false);  // 원판 x, y ,r, st, en, di
+		ctx.lineTo(0, 0);
+		ctx.closePath();
+		
+		var color = "";
+		if (e.price == '20000') {
+			color = 'red';
+		} else if (e.price == '15000') {
+			color = 'cyan';
+		} else if (e.price == '10000') {
+			color = 'green';
+		} else if (e.price == '5000') {
+			color = 'yellow';
+		} else if (e.price == '3000') {
+			color = 'yellowgreen';			
+		} else {			
+			color = 'white';			
+		}
+		
+		ctx.fillStyle = color;
+		ctx.fill();						// 색상
+		
+		ctx.fillStyle = "black";
+		ctx.textAlign = "left";
+		ctx.font = "14px arial";
+		ctx.fillText(e.name + " "+ e.price, 250, 30);	// 상품명
+		
+		ctx.rotate( (360/arrList.length) * (Math.PI/180));
+		
+	});
+	
+	var numRandom = 0;
+	var r = 0;
+	$('#canvas').on({
+		'click' : function() {
+			numRandom = Math.random() * 360 + 1080;
+	console.log(numRandom);
+			r = arrList.length * (numRandom % 360) / 360;
+			
+			$(this).css({'transition-timing-function': 'ease-in-out'
+				, 'transition': '6s'
+				, 'transform': 'rotate('+numRandom+'deg)'
+				, 'transition-origin' : '0% 0%'
+			});
+			
+			$('#canvas').off('click');	//	1회 제한
+		},
+		'transitionend' : function() {
+			var st = arrList.length * 259/360;	// 시작점이 259
+			var index;
+			
+	console.log(Math.ceil(st- r));
+			if (st - r <= -1) {
+				index = arrList.length - Math.abs(Math.ceil(st - r));
+			} else {
+				index = Math.ceil(st - r);
+			}
+			
+			$('#result').text(arrList[index].name);
+		}
+	});
+	
+</script>
+</body>
+</html>
