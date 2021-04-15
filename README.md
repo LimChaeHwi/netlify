@@ -1,5 +1,5 @@
 # Netlify 
 netlify project build
 
-url: [chaehee.netlify.com](chaehee.netlify.com)
+url: [chaehee.netlify.com](https://chaehee.netlify.com)
 
