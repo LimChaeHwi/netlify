@@ -1,4 +1,4 @@
-## 랜덤 생일선물 당첨 룰렛
+## 생일선물 당첨 룰렛
 
 url: <https://chaehwi.netlify.app/projects/roulette/roulette/>
 
