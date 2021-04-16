@@ -12,7 +12,7 @@
 
 알고리즘 관련 퀴즈 목록
 
-https://chaehee.netlify.com/
+
 
 ## Projects
 
@@ -22,7 +22,7 @@ https://chaehee.netlify.com/
 
 
 
-## 
+##  Contacts
 
 - Github: https://github.com/LimChaeHwi
 - Email: <limch9691@hanmail.net>
