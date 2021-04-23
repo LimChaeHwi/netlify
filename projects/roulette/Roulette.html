@@ -7,13 +7,21 @@
 <script src="./Drawing.js"></script>
 <style>
 	#pan {
-		width: 1000px; height:1000px; overflow: hidden; position: relative;
+		width: 1000px; height:1000px; overflow: hidden; position: relative; background: url(img/congratulation_basic.gif); 
 	}
 	
 	#pin {
-		width: 0; height:0; top: 80px; left:491px; position: absolute; 
+		width: 0; height:0; top: 160px; left:491px; position: absolute; 
 		border-radius: 32px 32px 0 0; border-top: 70px solid crimson; border-left: 16px solid transparent;
 		border-right: 16px solid transparent; border-bottom: 0; z-index: 1;
+	}
+	.start{
+		width: 140px; height: 140px; background: #fff; border-radius: 50%; border: 10px solid rgb(255 212 0); position: absolute;
+		top: 480px; left: 430px; z-index: 9999; cursor: pointer;
+	}
+
+	.startTxt{
+		display: block; font-size: 35px; font-weight: bold; position: absolute; top: 45px; left: 15px;
 	}
 </style>
 </head>
@@ -21,6 +29,10 @@
 	<a href="https://github.com/LimChaeHwi/netlify/tree/main/projects/roulette">소스보기</a>
 	
 	<div id="today" style="text-align:right;"></div>
+	
+	<div class="start">
+		<span class="startTxt">START</span>
+	</div>
 	
 	<div id="pan">
 		<canvas id="canvas" width="1000px" height="1000px"></canvas>
@@ -33,10 +45,11 @@
 		선물 : <b><span id="result"></span></b>
 	</div>
 	
-	<div style="border:1px solid; position:fixed; z-index:999; cursor:crosshair; margin-left:-350px; left:50%; top:1200px; width:700px; height:400px;">
+	<div style="border:1px solid; position:fixed; z-index:999; cursor:crosshair; margin-left:-350px; left:50%; top:1200px; width:700px; height:400px; border: 1px solid;">
 		<canvas id="cnvs" width="700" height="400">
 		</canvas>
 	</div>
+	
 	
 	
 	
@@ -54,7 +67,7 @@
 		
 		arrList.push({name:"치킨or피자", price:20000});
 		arrList.push({name:"핸드크림", price:10000});
-		arrList.push({name:"꽝", price:0});
+		arrList.push({name:"다시하기", price:''});
 		arrList.push({name:"휴대폰 충전기", price:10000});
 		arrList.push({name:"커피 한잔", price:5000});
 		arrList.push({name:"멀티탭", price:10000});
@@ -63,12 +76,12 @@
 		arrList.push({name:"그립톡", price:10000});
 		arrList.push({name:"캔디머신", price:5000});
 		arrList.push({name:"요술봉", price:15000});
-		arrList.push({name:"마스크 줄", price:10000});
+		arrList.push({name:"캔들", price:10000});
 		arrList.push({name:"양말", price:5000});
 		arrList.push({name:"슬리퍼", price:10000});
 		arrList.push({name:"방석", price:15000});
-		arrList.push({name:"캔들", price:10000});
-		arrList.push({name:"선풍기", price:15000});
+		arrList.push({name:"마스크 줄", price:10000});
+		arrList.push({name:"마스크", price:3000});
 		arrList.push({name:"커피 세트", price:10000});
 		arrList.push({name:"가습기", price:15000});
 		arrList.push({name:"무드등", price:10000});
@@ -76,7 +89,7 @@
 		arrList.push({name:"문상 1만원", price:10000});
 		arrList.push({name:"볼펜", price:3000});
 		arrList.push({name:"머그컵", price:10000});
-		arrList.push({name:"마스크", price:3000});
+		arrList.push({name:"선풍기", price:15000});
 		arrList.push({name:"(손)수건", price:10000});
 		arrList.push({name:"이모티콘", price:3000});
 		arrList.push({name:"손세정제", price:10000});
@@ -86,23 +99,23 @@
 			
 		arrList.forEach(function(e, i) {
 			ctx.beginPath();
-			ctx.arc(0, 0, 400, 0, (360/arrList.length)*(Math.PI/180), false);  // 원판 x, y ,r, st, en, di
+			ctx.arc(0, 0, 350, 0, (360/arrList.length)*(Math.PI/180), false);  // 원판 x, y ,r, st, en, di
 			ctx.lineTo(0, 0);
 			ctx.closePath();
 			
 			var color = "";
 			if (e.price == '20000') {
-				color = 'red';
+				color = '#f9d960';
 			} else if (e.price == '15000') {
-				color = 'cyan';
+				color = '#fccdd3';
 			} else if (e.price == '10000') {
-				color = 'green';
+				color = '#e5f6e4';
 			} else if (e.price == '5000') {
-				color = 'yellow';
+				color = '#68fae3';
 			} else if (e.price == '3000') {
-				color = 'yellowgreen';			
+				color = '#fd9a70';			
 			} else {			
-				color = 'white';			
+				color = '#6b7187';			
 			}
 			
 			ctx.fillStyle = color;
@@ -111,7 +124,7 @@
 			ctx.fillStyle = "black";
 			ctx.textAlign = "left";
 			ctx.font = "14px arial";
-			ctx.fillText(e.name + " "+ e.price, 250, 30);	// 상품명
+			ctx.fillText(e.name + " "+ e.price, 180, 30);	// 상품명
 			
 			ctx.rotate( (360/arrList.length) * (Math.PI/180));
 			
@@ -121,20 +134,23 @@
 		
 		var numRandom = 0;
 		var r = 0;
-		$('#canvas').on({
+		$('.start').on({
 			'click' : function() {
 				numRandom = Math.random() * 360 + 1080;
-		console.log(numRandom);
+		console.log("numRandom : " + numRandom);
 				r = arrList.length * (numRandom % 360) / 360;
 				
-				$(this).css({'transition-timing-function': 'ease-in-out'
+				$('#canvas').css({'transition-timing-function': 'ease-in-out'
 					, 'transition': '6s'
 					, 'transform': 'rotate('+numRandom+'deg)'
 					, 'transition-origin' : '0% 0%'
 				});
 				
-				$('#canvas').off('click');	//	1회 제한
-			},
+				$(this).off('click');	//	1회 제한
+			}
+		});
+
+		$('#canvas').on({
 			'transitionend' : function() {
 				var st = arrList.length * 258/360;	// 시작점이 258
 				var index;
@@ -147,7 +163,12 @@
 				}
 				
 				$('#result').text(arrList[index].name);
+				$('#pan').css({
+					"background" : "url(img/congratulation.gif)",
+					"backgroundPosition" : "0px 30px",
+					"transition" : "1.0s"});
 			}
+			
 		});
 		
 		
