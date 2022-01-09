@@ -14,6 +14,14 @@
 
 
 
+## STUDY
+
+[스터디 목록](study/study.html)
+
+스터디 내용
+
+
+
 ## Projects
 
 [개발 목록](projects/projects.html)
