@@ -32,7 +32,7 @@ React 정리
 
 5. 해당 위치에 App 생성  >> C:\Users\사용자이름\Desktop\react-app\
 
-![image-20211230144314440](..\image\image-20211230144314440.png)
+![image-20211230144314440](.\image\image-20211230144314440.png)
 
 ​		[react-app 구조]
 
