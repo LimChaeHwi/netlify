@@ -34,7 +34,33 @@ React 정리
 
 ![image-20211230144314440](.\image\image-20211230144314440.png)
 
-​		[react-app 구조]
+	[react-app 구조]
+	├─ node_modules
+	├─ public
+	│      favicon.ico
+	│      index.html
+	│      logo192.png
+	│      logo512.png
+	│      manifest.json
+	│      robots.txt
+	└─ src
+		├─ components
+		│      Control.js
+		│      Counter.js
+		│      CreateContent.js
+		│      ReadContent.js
+		│      Subject.js
+		│      Timer.js
+		│      TOC.js
+		│      UpdateContent.js
+		│  App.css
+		│  App.js
+		│  App.test.js
+		│  index.css
+		│  index.js
+		│  logo.svg
+		│  reportWebVitals.js
+		│  setupTests.js
 
 
 
@@ -144,7 +170,127 @@ React 정리
 
 ## 컴포넌트 생성
 
-1. 컴포넌트 생성 위치
+1. 컴포넌트 생성 위치 (임의의 디렉토리에 컴포넌트 모음)
+   /src/components/
+
+2. 컴포넌트 선언
+
+   ```react
+   import React, {Component} from 'react';
+   import Subject from './components/Subject'
+   import './App.css';
+   
+   class App extends Component {
+     render() {
+       return (
+         <header>
+           <h1>리액트 예제</h1>
+           <Subject></Subject>
+           <p>내용</p>
+         </header>
+       );	
+     }
+   }
+   export default App;
+   ```
+
+   - import React, {Component} from 'react';
+
+     - React 공통 import https://ko.reactjs.org/docs/react-api.html
+     - npm 과 ES6 인 경우 `import React from 'react'`
+     - npm 과 ES5 인 경우 `var React = require('react')` 
+
+   - import Subject from './components/**Subject**'
+
+     - Subject 컴포넌트 import
+     - Subject.js 에서 확장자명이 생략 가능
+
+   - class **App** extends **Component** {}
+
+     - App : 컴포넌트 명칭 (첫 문자는 **대문자**가 원칙)
+     - extends Component : Component 를 상속
+
+   - render() {  }
+
+     - 화면에 표시할 내용 앨리먼트로 **return (앨리먼트 or 문자)**
+       - `return <div>Count : {this.state.count}</div>;`
+       - `return this.state.count;`  <= 앨리먼트 없이 단독인 경우 중괄호 제거
+       - `return 'Count';` <= 문자열이므로 따옴표 필요
+     - return 하는 **최상위 요소는 1개만 허용**
+     - https://ko.reactjs.org/docs/react-component.html#render
+
+   -  \<h1\>리액트 예제\<h1\>
+
+     - **JSX** 문법으로 **React 엘리먼트**를 생성
+     - JSX 는 Javascript 를 확장한 문법으로 Javascript 모든 기능 포함
+     - html 형태와 유사하지만 다르다. (class => className, textarea 내용 value)
+     - **소문자**로 시작하는 태그는 DOM 태그로 인식하고 처리
+     - https://ko.reactjs.org/docs/introducing-jsx.html
+
+   - \<Subject\>\</Subject\>
+
+     - **import** 된 사용자 정의 컴포넌트를 렌더링(합성)
+
+   - export default App;
+
+     - App 컴포넌트를 추출
+
+       
+       
+       
+
+## props 와 state
+
+1. props
+
+   - **읽기 전용**
+   - Component 의 속성
+   - 상위 Component 에서 하위 Component 로 **데이터 전달**
+   - 이벤트 함수 선언으로 **다른 Component 와 소통**
+
+2. state
+
+   - 각 클래스마다 가지는 **데이터 저장소**
+   - **수정 가능**
+   - 수정할 땐 **반드시 setState()** 함수 사용
+
+   ```react
+   /* App.js */
+   <Subject title={this.state.subject.title} sub={this.state.subject.sub}
+       onChangePage={function() {
+           this.setState({mode: 'welcome'});
+       }.bind(this)}
+       ></Subject>
+   
+   import React, {Component} from 'react';
+   
+   class Subject extends Component {
+       render () {
+         return (
+           <header>
+             <h1><a href='/' onClick={
+               function(e) {
+                 e.preventDefault();
+                 this.props.onChangePage();
+               }.bind(this)}>{this.props.title} (React)</a>
+             </h1>
+             {this.props.sub}
+           </header>
+         );
+       }
+   }
+   
+   export default Subject;
+   ```
+
+   
+
+3. 
+
+## CRUD
 
 
 
+
+
+끝
