@@ -6,25 +6,41 @@
 
 ## JPA
 
-[study](jpa/jpa.html)
+- [study](jpa/jpa.html)
 
 
 
 ## SPRING
 
-[study](spring/spring.html)
+- [study](spring/spring.html)
 
 
 
 ## JAVA
 
-[study](java/java.html)
+- [java-basic](java/java.html)
 
 
 
-## REACT(예정)
+## REACT
 
-[study](react/react.html)
+- [start](react/react.html)
+
+
+
+## Vue
+
+- [vue 2 설정](vue/vue-2-setting.html)
+
+- [vue 2](vue/vue-2.html)
+
+  
+
+## MSA
+
+- [spring-cloud (TAcademy)](msa/spring-cloud-tacademy.html)
+
+
 
 
 

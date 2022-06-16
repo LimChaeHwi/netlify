@@ -1,4 +1,4 @@
-# STUDY
+# Spring
 
 스터디 정리
 
